@@ -4,7 +4,7 @@
     state: directory
     owner: alloy
     group: alloy
-    mode: 644
+    mode: '644'
   become: true
 
 - name: Configure alloy to send logs to central Loki server
@@ -13,7 +13,7 @@
     dest: /etc/alloy/config.d/journald.alloy
     owner: alloy
     group: alloy
-    mode: 644
+    mode: '644'
   become: true
   notify: "Restart alloy"
 
