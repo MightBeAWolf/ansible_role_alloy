@@ -1,0 +1,31 @@
+---
+galaxy_info:
+  role_name: alloy
+  author: Thomas G Wolf
+  description: Configure a system so as to deploy logs through alloy to a loki server.
+  license: MIT
+  min_ansible_version: "2.14"
+
+  platforms:
+    - name: Debian
+      versions:
+        - "12"
+    - name: Fedora
+      versions:
+        - "40"
+        - "41"
+        - "42"
+    - name: RedHat
+      versions:
+        - "8"
+
+  galaxy_tags:
+    - logs
+    - alloy
+    - grafana
+    - client
+    - linux
+
+dependencies:
+  - role: grafana.grafana.alloy
+

@@ -1,0 +1,30 @@
+loki.source.journal "read" {
+  path = "/var/log/journal"
+  labels = {
+    service_name = "systemd-journal",
+    host         = "{{ inventory_hostname }}",
+  }
+  forward_to   = [loki.write.endpoint.receiver]
+  relabel_rules = loki.relabel.journal.rules
+}
+
+loki.relabel "journal" {
+  forward_to = []
+  rule {
+    source_labels = ["__journal__systemd_unit"]
+    regex         = \`alloy\.service\`
+    action        = "drop"
+  }
+  rule {
+    source_labels = ["__journal_priority"]
+    target_label  = "priority"
+  }
+}
+
+loki.write "endpoint" {
+  endpoint{
+    url = "{{ alloy_loki_server }}/loki/api/v1/push"
+  }
+}
+
+
