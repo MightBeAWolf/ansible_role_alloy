@@ -22,12 +22,16 @@
 
 - name: Correct alloy config ownership
   ansible.builtin.file:
-    path: "{{ alloy_config_path }}"
-    state: exists
+    path: "{{ alloy_config.path }}"
+    state: "{{ alloy_config.type }}"
     owner: 'alloy'
     group: 'alloy'
-  loop: ['/etc/alloy/config.d', '/etc/alloy/config.d/journald.alloy']
+  loop:
+    - path: /etc/alloy/config.d
+      type: directory
+    - path: /etc/alloy/config.d/journald.alloy
+      type: file
   loop_control:
-    loop_var: alloy_config_path
+    loop_var: alloy_config
   become: true
 
