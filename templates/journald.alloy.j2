@@ -12,7 +12,7 @@ loki.relabel "journal" {
   forward_to = []
   rule {
     source_labels = ["__journal__systemd_unit"]
-    regex         = \`alloy\.service\`
+    regex         = `alloy\.service`
     action        = "drop"
   }
   rule {
