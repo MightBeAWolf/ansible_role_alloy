@@ -1,16 +1,7 @@
-- name: Deploy Alloy to send logs to central Loki server
-  ansible.builtin.include_role:
-    name: grafana.grafana.alloy
-  vars:
-    alloy_env_file_vars:
-      CONFIG_FILE: /etc/alloy/config.d
-
 - name: Configure alloy config directory
   ansible.builtin.file:
     path: /etc/alloy/config.d
     state: directory
-    owner: alloy
-    group: alloy
     mode: '755'
   become: true
 
@@ -18,8 +9,25 @@
   ansible.builtin.template:
     src: journald.alloy.j2
     dest: /etc/alloy/config.d/journald.alloy
-    owner: alloy
-    group: alloy
     mode: '644'
   become: true
   notify: "restart alloy"
+
+- name: Deploy Alloy to send logs to central Loki server
+  ansible.builtin.include_role:
+    name: grafana.grafana.alloy
+  vars:
+    alloy_env_file_vars:
+      CONFIG_FILE: /etc/alloy/config.d
+
+- name: Correct alloy config ownership
+  ansible.builtin.file:
+    path: "{{ alloy_config_path }}"
+    state: exists
+    owner: 'alloy'
+    group: 'alloy'
+  loop: ['/etc/alloy/config.d', '/etc/alloy/config.d/journald.alloy']
+  loop_control:
+    loop_var: alloy_config_path
+  become: true
+
