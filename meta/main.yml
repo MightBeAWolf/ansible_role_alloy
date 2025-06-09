@@ -27,5 +27,6 @@ galaxy_info:
     - linux
 
 dependencies:
-  - collections: grafana.grafana
+  collections:
+    - name: grafana.grafana
 
