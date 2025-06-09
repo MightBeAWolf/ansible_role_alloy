@@ -15,7 +15,7 @@
     group: alloy
     mode: 644
   become: true
-  notify: "grafana.grafana.alloy : Restart alloy"
+  notify: "Restart alloy"
 
 - name: Deploy Alloy to send logs to central Loki server
   ansible.builtin.include_role:
