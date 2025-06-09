@@ -25,8 +25,3 @@ galaxy_info:
     - grafana
     - client
     - linux
-
-dependencies:
-  collections:
-    - name: grafana.grafana
-
