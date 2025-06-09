@@ -1,9 +1,9 @@
 - name: Deploy Alloy to send logs to central Loki server
   ansible.builtin.include_role:
     name: grafana.grafana.alloy
-    vars:
-      alloy_env_file_vars:
-        CONFIG_FILE: /etc/alloy/config.d
+  vars:
+    alloy_env_file_vars:
+      CONFIG_FILE: /etc/alloy/config.d
 
 - name: Configure alloy to send logs to central Loki server
   ansible.builtin.template:
