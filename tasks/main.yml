@@ -1,9 +1,11 @@
-- name: Deploy Alloy to send logs to central Loki server
-  ansible.builtin.include_role:
-    name: grafana.grafana.alloy
-  vars:
-    alloy_env_file_vars:
-      CONFIG_FILE: /etc/alloy/config.d
+- name: Configure alloy config directory
+  ansible.builtin.file:
+    path: /etc/alloy/config.d
+    state: directory
+    owner: alloy
+    group: alloy
+    mode: 644
+  become: true
 
 - name: Configure alloy to send logs to central Loki server
   ansible.builtin.template:
@@ -13,4 +15,11 @@
     group: alloy
     mode: 644
   become: true
+  notify: "grafana.grafana.alloy : Restart alloy"
 
+- name: Deploy Alloy to send logs to central Loki server
+  ansible.builtin.include_role:
+    name: grafana.grafana.alloy
+  vars:
+    alloy_env_file_vars:
+      CONFIG_FILE: /etc/alloy/config.d
