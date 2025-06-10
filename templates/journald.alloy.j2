@@ -13,7 +13,7 @@ loki.relabel "journal" {
   {% for unit in alloy_systemd_units_to_ignore + alloy_systemd_units_to_ignore_base %}
   rule {
     source_labels = ["__journal__systemd_unit"]
-    regex         = `{{ unit | regex_replace('.', '\.') }}`
+    regex         = `{{ unit | regex_replace('\.', '\.') }}`
     action        = "drop"
   }
   {% endfor %}
