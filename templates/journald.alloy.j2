@@ -10,11 +10,13 @@ loki.source.journal "read" {
 
 loki.relabel "journal" {
   forward_to = []
+  {% for unit in alloy_systemd_units_to_ignore + alloy_systemd_units_to_ignore_base %}
   rule {
     source_labels = ["__journal__systemd_unit"]
-    regex         = `alloy\.service`
+    regex         = `{{ unit | regex_replace('.', '\.') }}`
     action        = "drop"
   }
+  {% endfor %}
   rule {
     source_labels = ["__journal_priority"]
     target_label  = "priority"
@@ -30,5 +32,3 @@ loki.write "endpoint" {
     url = "{{ alloy_loki_server }}/loki/api/v1/push"
   }
 }
-
-

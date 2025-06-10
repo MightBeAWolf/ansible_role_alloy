@@ -1,0 +1,2 @@
+alloy_systemd_units_to_ignore_base:
+  - alloy.service
