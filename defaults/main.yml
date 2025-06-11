@@ -1,2 +1,2 @@
-alloy_loki_server: "https://loki.monitoring.local.wolfbox.dev"
+alloy_loki_server: "https://loki.monitoring.wolfbox.dev"
 alloy_systemd_units_to_ignore: []
