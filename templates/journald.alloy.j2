@@ -8,6 +8,7 @@ loki.source.journal "read" {
   relabel_rules = loki.relabel.journal.rules
 }
 
+
 loki.relabel "journal" {
   forward_to = []
   {% for unit in alloy_systemd_units_to_ignore + alloy_systemd_units_to_ignore_base %}
@@ -26,6 +27,7 @@ loki.relabel "journal" {
     target_label  = "unit"
   }
 }
+
 
 loki.write "endpoint" {
   endpoint{
